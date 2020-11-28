@@ -1,0 +1,9 @@
+.overflow-auto
+  table.table
+    thead
+      tr
+        -Worker.attribute_names.each do |key|
+          th=key
+    tbody
+      =render @workers
+
