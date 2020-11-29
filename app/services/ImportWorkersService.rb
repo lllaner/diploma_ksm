@@ -19,6 +19,5 @@ class ImportWorkersService
       end
       Worker.create(parameters)
     end
-
   end
 end

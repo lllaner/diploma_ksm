@@ -13,19 +13,18 @@
 ActiveRecord::Schema.define(version: 2020_11_19_121638) do
 
   create_table "workers", force: :cascade do |t|
-    t.string "number"
     t.string "position"
     t.string "language"
     t.string "specialization"
-    t.string "work_experience"
-    t.string "current_work_experience"
-    t.string "month_salary"
-    t.string "change_salary"
+    t.integer "work_experience"
+    t.integer "current_work_experience"
+    t.integer "month_salary"
+    t.integer "change_salary"
     t.string "city"
-    t.string "company_size"
+    t.integer "company_size"
     t.string "company_type"
     t.string "sex"
-    t.string "age"
+    t.integer "age"
     t.string "education"
     t.string "university"
     t.string "student_status"
@@ -33,9 +32,9 @@ ActiveRecord::Schema.define(version: 2020_11_19_121638) do
     t.string "subject_area"
     t.string "filling_date"
     t.string "user_agent"
-    t.string "exp"
-    t.string "current_job_exp"
-    t.string "salary"
+    t.integer "exp"
+    t.integer "current_job_exp"
+    t.integer "salary"
     t.string "cls"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
