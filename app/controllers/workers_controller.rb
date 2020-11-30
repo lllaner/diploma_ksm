@@ -1,7 +1,7 @@
 class WorkersController < ApplicationController
 
   def index
-    @workers = Worker.all
+    render plain: 'Diploma Work'
   end
 
   def worker
