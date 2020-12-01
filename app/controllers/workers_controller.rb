@@ -28,9 +28,13 @@ class WorkersController < ApplicationController
       salary_start = (params[:query].to_i / 500) * 500
       salary_end = salary_start + 500
       languages = Worker.all.pluck(:language).uniq.reject(&:blank?)
-      result = {}
+      result = []
       languages.each do |lang|
-        result[lang] = (Worker.all.where(language: lang).where(month_salary: salary_start..salary_end).count / Worker.count.to_f).round(3)
+        workers = Worker.all.where(language: lang)
+        result << {
+          name: lang,
+          percent: (workers.where(month_salary: salary_start..salary_end).count * 100 / workers.count.to_f).round(3)
+        }
       end
       render json: result
     elsif params[:city]
