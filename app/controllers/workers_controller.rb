@@ -27,10 +27,16 @@ class WorkersController < ApplicationController
     elsif params[:query]
       salary_start = (params[:query].to_i / 500) * 500
       salary_end = salary_start + 500
-      response = (Worker.all.where(month_salary: salary_start..salary_end).count / Worker.count.to_f).round(3)
-      render json: response
+      languages = Worker.all.pluck(:language).uniq.reject(&:blank?)
+      result = {}
+      languages.each do |lang|
+        result[lang] = (Worker.all.where(language: lang).where(month_salary: salary_start..salary_end).count / Worker.count.to_f).round(3)
+      end
+      render json: result
     elsif params[:city]
-      render json: Worker.all.where(city: params[:city]).order(month_salary: :desc).take(10)
+      result = {}
+      result[:workers] = Worker.all.where(city: params[:city]).order(month_salary: :desc).take(10)
+      render json: result
     else
       render json: {status: 'Bad request'}.to_json
     end
