@@ -36,7 +36,7 @@ class WorkersController < ApplicationController
     elsif params[:city]
       result = {}
       result[:workers] = Worker.all.where(city: params[:city]).order(month_salary: :desc).take(10)
-      render json: result
+      render json: result.to_json
     else
       render json: {status: 'Bad request'}.to_json
     end
