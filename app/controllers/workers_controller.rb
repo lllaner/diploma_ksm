@@ -48,12 +48,13 @@ class WorkersController < ApplicationController
 
   def top_workers
     if params[:language]
-      @workers = Worker.all.where(language: params[:language]).order(month_salary: :asc)
+      @workers = Worker.all.where(language: params[:language]).order(month_salary: :desc)
+      min = Worker.all.where(language: params[:language]).order(month_salary: :asc).take(10)
       workers_start = @workers.count / 2
       workers_end = workers_start + 10
       middle = @workers[workers_start..workers_end]
 
-      render json: { max: @workers.take(10), middle: middle, min: @workers.order(month_salary: :desc).take(10) }.to_json
+      render json: { max: @workers.take(10), middle: middle, min: min}.to_json
     else
       render json: {status: 'Bad request'}.to_json
     end
